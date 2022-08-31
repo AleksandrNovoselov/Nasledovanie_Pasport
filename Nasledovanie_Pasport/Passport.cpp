@@ -19,18 +19,15 @@ void Passport::print()
 	cout << "Серия, номер паспорта: " << getSeries() << " " << getNumber() << endl << endl;
 }
 
-bool Passport::check()
+bool Passport::check(Passport& pass)
 {
-	for (size_t i = 1; i < _arrPasp.size(); i++)
+	for (auto& item : _arrPasp)
 	{
-		if (_arrPasp[i - 1]._series == _arrPasp[i]._series)
-		{
-			if (_arrPasp[i - 1]._number == _arrPasp[i]._number)
-			{
-				return true;
-			}
-		}
+		if (item.getSeries() == pass.getSeries() &&
+			item.getNumber() == pass.getNumber())
+			return true;
 	}
+
 	return false;
 }
 
@@ -56,15 +53,15 @@ void Passport::addPasport()
 
 	Passport pasp(surname,name,patronymic,series,number);
 
-	_arrPasp.push_back(pasp);
-
-	if (check())
+	if (check(pasp))
 	{
 		cout << "Номер паспорта уже есть в базе\n";
-		_arrPasp.pop_back();
 	}
 	else
+	{
+		_arrPasp.push_back(pasp);
 		cout << "Данные дабавлены в базу\n";
+	}
 }
 
 Passport& Passport::setSeries(int series)

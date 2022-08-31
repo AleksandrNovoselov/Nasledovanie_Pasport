@@ -40,7 +40,7 @@ public:
 
 	void print();
 
-	bool check();//пока проверка работает неверно
+	bool check(Passport& pasport);//пока проверка работает неверно
 
 	void addPasport();
 };
